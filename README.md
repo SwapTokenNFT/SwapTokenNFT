@@ -272,3 +272,87 @@ flowchart LR
     class C,R,P economy;
     class X,L growth;
     class B1,B2,B3,B4,B5,B6,C1,C2,C3,C4,C5,D1,D2,D3,D4,R1,R2,R3,R4,P1,P2,P3,P4,X1,X2,X3,X4,L1,L2,L3,L4,L5 internals;
+
+flowchart LR
+    U[User]
+
+    subgraph CORE[Core Pipeline]
+        direction LR
+        CLI[src/main.py]
+        ORCH[src/orchestrator.py]
+        AG[agents.py]
+        WG[wallet_guard.py]
+        TOOLS[tools.py]
+        SIGNER[signer_service.py]
+        AUDIT[transaction_audit.py]
+        STORAGE[storage.py]
+        OUT[output/*]
+
+        CLI --> ORCH --> AG --> WG --> TOOLS --> SIGNER --> AUDIT --> STORAGE --> OUT
+    end
+
+    subgraph CLUB[Club Agent]
+        direction TB
+        CLUB_IN[club/intake.py]
+        CLUB_VER[club/verification.py]
+        CLUB_MEM[club/membership.py]
+        CLUB_COMM[club/community.py]
+        CLUB_ACT[club/actions.py]
+        CLUB_LOG[club/club_audit.py]
+
+        CLUB_IN --> CLUB_VER --> CLUB_MEM --> CLUB_COMM --> CLUB_ACT --> CLUB_LOG
+    end
+
+    subgraph ECON[Club Economy Agent]
+        direction TB
+        ECON_PARTNER[club_economy/partner_intake.py]
+        ECON_RULES[club_economy/reward_rules.py]
+        ECON_REW[club_economy/reward_engine.py]
+        ECON_CATALOG[club_economy/offer_catalog.py]
+        ECON_ANALYTICS[club_economy/partner_analytics.py]
+
+        ECON_PARTNER --> ECON_RULES --> ECON_REW --> ECON_CATALOG --> ECON_ANALYTICS
+    end
+
+    subgraph SHARED[Shared Services]
+        direction TB
+        WG2[wallet_guard.py]
+        TOOLS2[tools.py]
+        SIGNER2[signer_service.py]
+        AUDIT2[transaction_audit.py]
+        STORAGE2[storage.py]
+    end
+
+    U --> CLI
+    ORCH --> CLUB
+    ORCH --> ECON
+
+    CLUB_VER --> WG2
+    CLUB_ACT --> TOOLS2
+    CLUB_LOG --> STORAGE2
+
+    ECON_REW --> SIGNER2
+    ECON_ANALYTICS --> AUDIT2
+    CLUB_LOG --> STORAGE2
+    CLUB_VER --> WG2
+    CLUB_ACT --> TOOLS2
+    ECON_REW --> SIGNER2
+    ECON_ANALYTICS --> AUDIT2
+
+    CLI -. shared .-> WG2
+    TOOLS -. shared .-> TOOLS2
+    SIGNER -. shared .-> SIGNER2
+    AUDIT -. shared .-> AUDIT2
+    STORAGE -. shared .-> STORAGE2
+
+    classDef core fill:#1e3a8a,stroke:#1d4ed8,color:#ffffff,stroke-width:2px;
+    classDef club fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:1px;
+    classDef economy fill:#dcfce7,stroke:#16a34a,color:#0f172a,stroke-width:1px;
+    classDef shared fill:#f3f4f6,stroke:#6b7280,color:#111827,stroke-width:1px;
+    classDef storage fill:#fef3c7,stroke:#d97706,color:#111827,stroke-width:1px;
+
+    class CLI,ORCH,AG,WG,TOOLS,SIGNER,AUDIT,STORAGE,OUT core;
+    class CLUB_IN,CLUB_VER,CLUB_MEM,CLUB_COMM,CLUB_ACT,CLUB_LOG club;
+    class ECON_PARTNER,ECON_RULES,ECON_REW,ECON_CATALOG,ECON_ANALYTICS economy;
+    class WG2,TOOLS2,SIGNER2,AUDIT2 shared;
+    class STORAGE2 storage;
