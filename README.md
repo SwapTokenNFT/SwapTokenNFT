@@ -118,6 +118,9 @@ CLI Orchestrator]
 
     SIMRES --> SUB
     TXRES --> DONE[Done / Result to Operator]
+    **Architecture Overview**
+
+SwapToken-NFT is structured around a core application pipeline, a dedicated Club Agent branch for membership and community operations, and a Club Economy Agent branch for rewards and partner-driven economics. The core pipeline is responsible for orchestration, wallet protection, tool execution, transaction signing, auditing, storage, and output generation. The Club Agent uses the blockchain flow for membership verification and access management, while the Club Economy Agent uses a separate blockchain flow for rewards, redemption, and partner settlement. Shared services are reused across the system to preserve modularity, reduce duplication, and keep the architecture maintainable.
     
 ## Architecture
 
@@ -356,3 +359,114 @@ flowchart LR
     class ECON_PARTNER,ECON_RULES,ECON_REW,ECON_CATALOG,ECON_ANALYTICS economy;
     class WG2,TOOLS2,SIGNER2,AUDIT2 shared;
     class STORAGE2 storage;
+
+######### + Blockchain 
+
+     flowchart LR
+    U[User]
+
+    subgraph CORE[Core Pipeline]
+        direction LR
+        CLI[src/main.py]
+        ORCH[src/orchestrator.py]
+        AG[agents.py]
+        WG[wallet_guard.py]
+        TOOLS[tools.py]
+        SIGNER[signer_service.py]
+        AUDIT[transaction_audit.py]
+        STORAGE[storage.py]
+        OUT[output/*]
+
+        CLI --> ORCH --> AG --> WG --> TOOLS --> SIGNER --> AUDIT --> STORAGE --> OUT
+    end
+
+    subgraph CLUB[Club Agent]
+        direction TB
+        CLUB_IN[club/intake.py]
+        CLUB_VER[club/verification.py]
+        CLUB_MEM[club/membership.py]
+        CLUB_COMM[club/community.py]
+        CLUB_ACT[club/actions.py]
+        CLUB_LOG[club/club_audit.py]
+
+        CLUB_IN --> CLUB_VER --> CLUB_MEM --> CLUB_COMM --> CLUB_ACT --> CLUB_LOG
+    end
+
+    subgraph ECON[Club Economy Agent]
+        direction TB
+        ECON_PARTNER[club_economy/partner_intake.py]
+        ECON_RULES[club_economy/reward_rules.py]
+        ECON_REW[club_economy/reward_engine.py]
+        ECON_CATALOG[club_economy/offer_catalog.py]
+        ECON_ANALYTICS[club_economy/partner_analytics.py]
+
+        ECON_PARTNER --> ECON_RULES --> ECON_REW --> ECON_CATALOG --> ECON_ANALYTICS
+    end
+
+    subgraph CHAIN_ACCESS[Blockchain Flow: Access]
+        direction TB
+        A1[Build access request]
+        A2[Wallet Guard]
+        A3[Signer Service]
+        A4[RPC / Node]
+        A5[Membership Contract]
+        A6[Receipt / Event Parser]
+
+        A1 --> A2 --> A3 --> A4 --> A5 --> A6
+    end
+
+    subgraph CHAIN_REWARDS[Blockchain Flow: Rewards]
+        direction TB
+        R1[Build reward action]
+        R2[Wallet Guard]
+        R3[Signer Service]
+        R4[RPC / Node]
+        R5[Reward / Loyalty Contract]
+        R6[Receipt / Event Parser]
+
+        R1 --> R2 --> R3 --> R4 --> R5 --> R6
+    end
+
+    subgraph SHARED[Shared Services]
+        direction TB
+        WG2[wallet_guard.py]
+        TOOLS2[tools.py]
+        SIGNER2[signer_service.py]
+        AUDIT2[transaction_audit.py]
+        STORAGE2[storage.py]
+    end
+
+    U --> CLI
+    ORCH --> CLUB
+    ORCH --> ECON
+
+    CLUB_VER --> A1
+    CLUB_ACT --> TOOLS2
+    CLUB_LOG --> STORAGE2
+    A6 --> CLUB_LOG
+
+    ECON_REW --> R1
+    ECON_ANALYTICS --> AUDIT2
+    R6 --> ECON_ANALYTICS
+
+    CLI -. shared .-> WG2
+    TOOLS -. shared .-> TOOLS2
+    SIGNER -. shared .-> SIGNER2
+    AUDIT -. shared .-> AUDIT2
+    STORAGE -. shared .-> STORAGE2
+
+    classDef core fill:#1e3a8a,stroke:#1d4ed8,color:#ffffff,stroke-width:2px;
+    classDef club fill:#dbeafe,stroke:#2563eb,color:#0f172a,stroke-width:1px;
+    classDef economy fill:#dcfce7,stroke:#16a34a,color:#0f172a,stroke-width:1px;
+    classDef chainAccess fill:#ede9fe,stroke:#7c3aed,color:#0f172a,stroke-width:1px;
+    classDef chainRewards fill:#fce7f3,stroke:#db2777,color:#0f172a,stroke-width:1px;
+    classDef shared fill:#f3f4f6,stroke:#6b7280,color:#111827,stroke-width:1px;
+    classDef storage fill:#fef3c7,stroke:#d97706,color:#111827,stroke-width:1px;
+
+    class CLI,ORCH,AG,WG,TOOLS,SIGNER,AUDIT,STORAGE,OUT core;
+    class CLUB_IN,CLUB_VER,CLUB_MEM,CLUB_COMM,CLUB_ACT,CLUB_LOG club;
+    class ECON_PARTNER,ECON_RULES,ECON_REW,ECON_CATALOG,ECON_ANALYTICS economy;
+    class A1,A2,A3,A4,A5,A6 chainAccess;
+    class R1,R2,R3,R4,R5,R6 chainRewards;
+    class WG2,TOOLS2,SIGNER2,AUDIT2 shared;
+    class STORAGE2 storage
