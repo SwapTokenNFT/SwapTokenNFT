@@ -470,3 +470,148 @@ flowchart LR
     class R1,R2,R3,R4,R5,R6 chainRewards;
     class WG2,TOOLS2,SIGNER2,AUDIT2 shared;
     class STORAGE2 storage
+swaptoken-nft-mvp-skeleton/
+├── .env.example                          # Шаблон конфигурации
+├── .pre-commit-config.yaml               # Pre-commit hooks (ruff, mypy)
+├── docker-compose.yml                    # PostgreSQL, Redis, Backend, Signer, Telegram Bot
+├── pyproject.toml                        # Root monorepo config
+├── README.md                             # (можно добавить)
+│
+├── backend/
+│   ├── Dockerfile                        # Backend container
+│   ├── pyproject.toml                    # Dependencies: FastAPI, SQLAlchemy, Redis, pytest, ruff, mypy
+│   ├── alembic.ini                       # Database migrations config
+│   ├── alembic/                          # Migration engine
+│   │   ├── env.py                        # Async Alembic environment
+│   │   ├── script.py.mako                # Migration template
+│   │   └── versions/                     # (auto-generated)
+│   │
+│   ├── app/
+│   │   ├── __init__.py
+│   │   ├── main.py                       # FastAPI entry point + lifespan + CORS + exception handlers
+│   │   │
+│   │   ├── core/
+│   │   │   ├── __init__.py
+│   │   │   ├── config.py                  # Pydantic Settings (env vars)
+│   │   │   ├── exceptions.py            # Domain exception hierarchy (6 classes)
+│   │   │   └── logging.py               # Structured logging (structlog)
+│   │   │
+│   │   ├── db/
+│   │   │   ├── __init__.py
+│   │   │   ├── base.py                  # SQLAlchemy async engine + session maker
+│   │   │   └── models.py                # ORM: PartnerORM, RewardRuleORM, OfferORM, AuditLogORM
+│   │   │
+│   │   ├── api/
+│   │   │   ├── __init__.py
+│   │   │   └── rest/
+│   │   │       ├── __init__.py
+│   │   │       └── routes/
+│   │   │           ├── __init__.py
+│   │   │           ├── health.py        # /health, /ready, /live
+│   │   │           ├── orchestrator.py  # POST /v1/orchestrator/event, GET /events
+│   │   │           └── club_economy.py # Подключает agent router
+│   │   │
+│   │   ├── services/
+│   │   │   ├── __init__.py
+│   │   │   ├── audit.py                 # AuditService — запись трассы операций
+│   │   │   ├── signer_client.py         # HTTP client к изолированному Signer Service
+│   │   │   ├── storage.py               # S3/IPFS/local abstraction
+│   │   │   └── oracle_client.py         # Price feeds, KYC verification
+│   │   │
+│   │   ├── orchestrator/
+│   │   │   ├── __init__.py
+│   │   │   ├── core.py                  # Orchestrator + ExecutionContext — полный pipeline
+│   │   │   ├── routing.py               # Agent registry + resolve_agent() + built-in handlers
+│   │   │   └── state_manager.py         # Session + Workflow state (in-memory → Redis/PostgreSQL)
+│   │   │
+│   │   └── agents/
+│   │       ├── __init__.py
+│   │       │
+│   │       ├── ai_supervisor/
+│   │       │   ├── __init__.py
+│   │       │   └── agent.py             # Fraud scan, Sybil detect, reward audit, anomaly report
+│   │       │
+│   │       ├── club_agent/
+│   │       │   ├── __init__.py
+│   │       │   ├── intake.py            # User onboarding, NFT status check
+│   │       │   ├── verification.py      # QR, NFT, manual approval verification
+│   │       │   ├── membership.py         # Tier transitions (Guest→Member→Premium→Admin)
+│   │       │   └── actions.py           # User actions, reward eligibility
+│   │       │
+│   │       ├── club_economy/            # ✅ УЖЕ БЫЛ ГОТОВ
+│   │       │   ├── __init__.py
+│   │       │   ├── README.md
+│   │       │   ├── api.py
+│   │       │   ├── router.py            # 7 endpoints: partners, rules, rewards, offers
+│   │       │   ├── dependencies.py      # DI: repo → service
+│   │       │   ├── schemas.py           # 12 Pydantic models
+│   │       │   ├── service.py           # ClubEconomyService (6 methods)
+│   │       │   ├── repository.py        # InMemoryClubEconomyRepository
+│   │       │   ├── models.py            # Partner, RewardRule, Offer dataclasses
+│   │       │   ├── exceptions.py        # 10 domain exceptions
+│   │       │   └── validators.py        # Business validators + allowed enums
+│   │       │
+│   │       └── wallet_guard/
+│   │           ├── __init__.py
+│   │           ├── policy.py            # WalletPolicy, PolicyRule dataclasses
+│   │           └── validator.py         # WalletGuardValidator — validate() с PolicyRejectedError
+│   │
+│   └── tests/
+│       ├── __init__.py
+│       ├── conftest.py                  # pytest-asyncio + AsyncClient fixture
+│       ├── unit/
+│       │   ├── __init__.py
+│       │   ├── test_exceptions.py       # 6 тестов для core exceptions
+│       │   ├── test_wallet_guard.py     # 6 тестов для policy + validator
+│       │   └── test_club_economy.py     # 8 тестов для partner, reward, offer operations
+│       ├── integration/
+│       │   ├── __init__.py
+│       │   └── test_api.py              # 5 тестов для health, orchestrator, economy endpoints
+│       └── e2e/
+│           ├── __init__.py
+│           └── test_full_flow.py        # Полный MVP flow: intake → partner → rule → reward → execute
+│
+├── security/
+│   └── signer_service/
+│       ├── __init__.py
+│       ├── main.py                      # FastAPI: POST /sign, GET /health (stub + production modes)
+│       └── Dockerfile                   # Изолированный контейнер
+│
+├── ton/
+│   └── smart_contracts/
+│       └── nft/
+│           ├── nft_collection.fc        # FunC: collection contract (mint, change_owner, getters)
+│           ├── nft_item.fc              # FunC: individual NFT (transfer, static data)
+│           ├── deploy.py                # Python: deploy + mint scripts (testnet/mainnet)
+│           └── README.md                # Build + deploy instructions
+│
+├── data/
+│   ├── __init__.py
+│   └── pipeline/
+│       ├── __init__.py
+│       └── etl.py                       # DataPipeline: ingest → transform → PII clean → export
+│
+├── sdk/
+│   ├── python/
+│   │   ├── setup.py
+│   │   └── swaptoken_sdk/
+│   │       ├── __init__.py
+│   │       └── client.py                # Async HTTP client для API
+│   └── js/
+│       ├── package.json
+│       └── src/
+│           └── client.js                # JavaScript/Node.js client для API
+│
+├── frontend/
+│   └── telegram/
+│       └── bot/
+│           ├── __init__.py
+│           ├── main.py                  # python-telegram-bot: /start, callbacks, Mini App, webhook/polling
+│           └── Dockerfile               # Контейнер для бота
+│
+├── integrations/                        # (пусто — для будущих интеграций)
+├── examples/                            # (пусто — для примеров использования)
+│
+└── .github/
+    └── workflows/
+        └── ci.yml                       # GitHub Actions: lint (ruff), format, type-check (mypy), test (pytest + coverage)
