@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SwapToken-NFT — О проекте</title>
+<style>
+:root{--bg:#0b0b10;--surface:#13131f;--surface-raised:#1a1a2e;--border:#232336;--text:#e2e8f0;--text-secondary:#94a3b8;--text-tertiary:#64748b;--accent-blue:#3b82f6;--accent-green:#22c55e;--accent-purple:#a855f7;--accent-red:#ef4444;--radius:10px;--font-sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;--font-mono:'SFMono-Regular',Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.navbar{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:60px;border-bottom:1px solid var(--border);background:rgba(11,11,16,0.95);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100}
+.nav-logo{font-size:20px;font-weight:700;background:linear-gradient(90deg,var(--accent-blue),var(--accent-purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;letter-spacing:-0.5px}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s;padding:6px 0;border-bottom:2px solid transparent}
+.nav-links a:hover,.nav-links a.active{color:var(--text);border-bottom-color:var(--accent-blue)}
+.nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer}
+.container{max-width:800px;margin:0 auto;padding:48px 24px}
+.page-title{font-size:28px;font-weight:700;margin-bottom:8px}
+.page-sub{color:var(--text-secondary);font-size:15px;margin-bottom:40px}
+.about-section{margin-bottom:40px}
+.about-section h2{font-size:20px;font-weight:600;margin-bottom:16px;color:var(--text)}
+.about-section p{font-size:15px;color:var(--text-secondary);margin-bottom:14px;line-height:1.7}
+.about-section ul{padding-left:20px;margin-bottom:14px}
+.about-section li{font-size:15px;color:var(--text-secondary);margin-bottom:8px;line-height:1.6}
+.highlight-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin:20px 0}
+.highlight-box h3{font-size:16px;font-weight:600;margin-bottom:10px;color:var(--text)}
+.highlight-box p{font-size:14px;color:var(--text-secondary);margin:0}
+.token-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+.token-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center}
+.token-card .num{font-size:24px;font-weight:700;color:var(--accent-blue);margin-bottom:4px}
+.token-card .label{font-size:12px;color:var(--text-secondary)}
+.site-footer{text-align:center;padding:32px 24px;border-top:1px solid var(--border);color:var(--text-tertiary);font-size:12px}
+@media(max-width:640px){
+.nav-links{display:none}
+.nav-toggle{display:block}
+.container{padding:32px 16px}
+.page-title{font-size:22px}
+.token-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">SWNF</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Главная</a></li>
+    <li><a href="api.html">API</a></li>
+    <li><a href="about.html" class="active" class="active">О проекте</a></li>
+    <li><a href="contact.html">Контакты</a></li>
+  </ul>
+  <button class="nav-toggle" onclick="alert('Меню: Главная, API, О проекте, Контакты')">☰</button>
+</nav>
+<div class="container">
+  <h1 class="page-title">О проекте SwapToken-NFT</h1>
+  <p class="page-sub">NFT / DeFi-проект на TON и приватном блокчейне SwapToken (Satoshi). Токенизация реальных активов (RWA).</p>
+
+  <div class="about-section">
+    <h2>Миссия</h2>
+    <p>SwapToken-NFT объединяет мир NFT и децентрализованных финансов на базе TON-экосистемы. Мы создаём инфраструктуру для токенизации реальных активов (RWA) через NFT-коллекции, обеспечивая прозрачность, ликвидность и доступность для каждого держателя.</p>
+    <p>Проект работает на двух блокчейнах одновременно: публичный TON для широкой аудитории и приватный блокчейн SwapToken (Satoshi) для институциональных операций и межсетевых мостов.</p>
+  </div>
+
+  <div class="about-section">
+    <h2>Технологии</h2>
+    <ul>
+      <li><strong>TON (The Open Network)</strong> — основная сеть для NFT, DeFi и пользовательских операций</li>
+      <li><strong>SwapToken Blockchain (Satoshi)</strong> — приватный блокчейн для RWA и институциональных транзакций</li>
+      <li><strong>FunC</strong> — язык смарт-контрактов для TON</li>
+      <li><strong>FastAPI + Python</strong> — backend с 8 агентами автоматизации</li>
+      <li><strong>Telegram Bot + WebApp</strong> — основной интерфейс пользователя</li>
+      <li><strong>IPFS</strong> — децентрализованное хранение метаданных NFT</li>
+    </ul>
+  </div>
+
+  <div class="about-section">
+    <h2>Агентная архитектура</h2>
+    <p>Сеть из 8 специализированных AI-агентов управляет всеми аспектами проекта:</p>
+    <div class="highlight-box">
+      <h3>8 агентов экосистемы</h3>
+      <p><strong>Orchestrator</strong> — центральный координатор приоритетных очередей и circuit breaker.<br>
+      <strong>Wallet Guard</strong> — сканирование транзакций и защита от фрода.<br>
+      <strong>AI Supervisor</strong> — мониторинг здоровья системы и алертинг.<br>
+      <strong>Marketing Agent</strong> — автоматические кампании и сегментация.<br>
+      <strong>Strategic Growth</strong> — аналитика роста и оптимизация метрик.<br>
+      <strong>Customer Success</strong> — поддержка пользователей и onboarding.<br>
+      <strong>Club Agent</strong> — управление клубным членством и доступами.<br>
+      <strong>Club Economy</strong> — экономика токена и реферальные программы.</p>
+    </div>
+  </div>
+
+  <div class="about-section">
+    <h2>Токеномика SWNF</h2>
+    <div class="token-grid">
+      <div class="token-card"><div class="num">1B</div><div class="label">Общий supply</div></div>
+      <div class="token-card"><div class="num">5%</div><div class="label">Team vesting</div></div>
+      <div class="token-card"><div class="num">20%</div><div class="label">Community rewards</div></div>
+    </div>
+  </div>
+
+  <div class="about-section">
+    <h2>Контракт</h2>
+    <p>Адрес смарт-контракта в сети TON:</p>
+    <div class="highlight-box" style="font-family:var(--font-mono);font-size:13px;word-break:break-all;">
+      EQCnuAkqB_ZC8fji5JNJGh9WbsVrCprOmgKz1j60aGKHTE63
+    </div>
+  </div>
+</div>
+<footer class="site-footer">
+  SwapToken-NFT (SWNF) · <a href="index.html" style="color:var(--text-tertiary)">Главная</a> · <a href="contact.html" style="color:var(--text-tertiary)">Контакты</a>
+</footer>
+</body>
+</html>
