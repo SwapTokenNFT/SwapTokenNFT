@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SwapToken-NFT (SWNF) — Главная</title>
+<style>
+:root{--bg:#0b0b10;--surface:#13131f;--surface-raised:#1a1a2e;--border:#232336;--text:#e2e8f0;--text-secondary:#94a3b8;--text-tertiary:#64748b;--accent-blue:#3b82f6;--accent-red:#ef4444;--accent-green:#22c55e;--accent-purple:#a855f7;--radius:10px;--font-sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;--font-mono:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.navbar{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:60px;border-bottom:1px solid var(--border);background:rgba(11,11,16,0.95);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100}
+.nav-logo{font-size:20px;font-weight:700;background:linear-gradient(90deg,var(--accent-blue),var(--accent-purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;letter-spacing:-0.5px}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s;padding:6px 0;border-bottom:2px solid transparent}
+.nav-links a:hover,.nav-links a.active{color:var(--text);border-bottom-color:var(--accent-blue)}
+.nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer}
+.hero{padding:48px 24px 32px;text-align:center;max-width:800px;margin:0 auto}
+.hero h1{font-size:32px;font-weight:700;margin-bottom:12px;background:linear-gradient(90deg,var(--text),var(--text-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:16px;color:var(--text-secondary);max-width:560px;margin:0 auto 24px}
+.contract-box{display:inline-flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);padding:8px 16px;border-radius:var(--radius);font-family:var(--font-mono);font-size:12px;color:var(--text-tertiary);cursor:pointer;transition:border-color .2s}
+.contract-box:hover{border-color:var(--accent-blue);color:var(--text)}
+.contract-box svg{width:14px;height:14px;color:var(--text-tertiary)}
+.links-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px}
+.links-row a{color:var(--text-secondary);text-decoration:none;font-size:13px;padding:8px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface);transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.links-row a:hover{border-color:var(--accent-blue);color:var(--text);transform:translateY(-1px)}
+.links-row svg{width:14px;height:14px}
+.widget-section{max-width:900px;margin:0 auto;padding:0 24px 48px}
+.widget-frame{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.swnf-widget{font-family:var(--font-sans);color:var(--text);line-height:1.5;width:100%}
+.swnf-header{padding:16px;border-bottom:1px solid var(--border)}
+.swnf-title{font-size:17px;font-weight:600;margin-bottom:4px}
+.swnf-sub{font-size:12px;color:var(--text-tertiary);font-family:var(--font-mono)}
+.swnf-tabs{display:flex;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+.swnf-tabs::-webkit-scrollbar{display:none}
+.swnf-tab{flex:1;min-width:0;padding:12px 8px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--text-secondary);font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;transition:color .15s,border-color .15s}
+.swnf-tab:hover{color:var(--text)}
+.swnf-tab.active{color:var(--text);border-bottom-color:var(--accent-blue)}
+.swnf-tab svg{width:16px;height:16px;flex-shrink:0}
+.swnf-panel{display:none;padding:16px}
+.swnf-panel.active{display:block}
+.stage{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;transition:border-color .15s}
+.stage-header{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;user-select:none;background:transparent;border:none;width:100%;font-family:inherit;font-size:15px;font-weight:500;color:var(--text);text-align:left}
+.stage-header:hover{background:rgba(255,255,255,0.03)}
+.stage-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.stage-icon svg{width:18px;height:18px}
+.stage-title{flex:1}
+.stage-chevron{width:18px;height:18px;color:var(--text-tertiary);transition:transform .2s;flex-shrink:0}
+.stage.open .stage-chevron{transform:rotate(180deg)}
+.stage-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.stage.open .stage-body{max-height:800px}
+.stage-content{padding:0 16px 16px 60px;font-size:14px;color:var(--text-secondary);line-height:1.6}
+.stage-content p{margin-bottom:10px}
+.stage-content ul{padding-left:18px;margin-bottom:10px}
+.stage-content li{margin-bottom:6px}
+.stage.entry .stage-icon{background:rgba(59,130,246,0.12);color:var(--accent-blue)}
+.stage.entry.open{border-color:rgba(59,130,246,0.3)}
+.stage.security .stage-icon{background:rgba(239,68,68,0.12);color:var(--accent-red)}
+.stage.security.open{border-color:rgba(239,68,68,0.3)}
+.stage.orchestration .stage-icon{background:rgba(34,197,94,0.12);color:var(--accent-green)}
+.stage.orchestration.open{border-color:rgba(34,197,94,0.3)}
+.stage.execution .stage-icon{background:rgba(168,85,247,0.12);color:var(--accent-purple)}
+.stage.execution.open{border-color:rgba(168,85,247,0.3)}
+.intent-btn{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:8px 14px;border-radius:6px;border:1px solid var(--border);background:var(--surface-raised);color:var(--text-secondary);font-size:12px;font-family:inherit;cursor:pointer;transition:all .15s}
+.intent-btn:hover{background:var(--border);color:var(--text);border-color:var(--text-tertiary)}
+.intent-btn svg{width:14px;height:14px}
+.roadmap-item{display:flex;gap:12px;margin-bottom:16px;position:relative}
+.roadmap-item:not(:last-child)::before{content:'';position:absolute;left:11px;top:28px;bottom:-16px;width:2px;background:var(--border)}
+.roadmap-dot{width:24px;height:24px;border-radius:50%;background:var(--surface-raised);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1}
+.roadmap-dot svg{width:12px;height:12px}
+.roadmap-dot.done{background:var(--accent-green);border-color:var(--accent-green);color:#fff}
+.roadmap-dot.active{background:var(--accent-blue);border-color:var(--accent-blue);color:#fff}
+.roadmap-content{flex:1;padding-top:2px}
+.roadmap-title{font-size:14px;font-weight:500;margin-bottom:4px}
+.roadmap-desc{font-size:13px;color:var(--text-secondary);line-height:1.5}
+.roadmap-date{font-size:11px;color:var(--text-tertiary);margin-top:2px;font-family:var(--font-mono)}
+.arch-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.arch-card{padding:14px;border:1px solid var(--border);border-radius:var(--radius);transition:border-color .2s}
+.arch-card:hover{border-color:var(--border)}
+.arch-card-title{font-size:13px;font-weight:500;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.arch-card-title svg{width:16px;height:16px;flex-shrink:0;color:var(--text-tertiary)}
+.arch-card-desc{font-size:12px;color:var(--text-secondary);line-height:1.5}
+.arch-card-meta{font-size:11px;color:var(--text-tertiary);margin-top:8px;font-family:var(--font-mono)}
+.imp-list{display:flex;flex-direction:column;gap:10px}
+.imp-item{display:flex;align-items:flex-start;gap:12px;padding:12px;border:1px solid var(--border);border-radius:var(--radius)}
+.imp-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--surface-raised);color:var(--text-tertiary)}
+.imp-icon svg{width:16px;height:16px}
+.imp-body{flex:1}
+.imp-title{font-size:14px;font-weight:500;margin-bottom:2px}
+.imp-desc{font-size:13px;color:var(--text-secondary)}
+.imp-priority{font-size:11px;padding:2px 8px;border-radius:4px;font-weight:500;margin-top:6px;display:inline-block}
+.imp-priority.high{background:rgba(239,68,68,0.12);color:var(--accent-red)}
+.imp-priority.medium{background:rgba(59,130,246,0.12);color:var(--accent-blue)}
+.imp-priority.low{background:rgba(100,116,139,0.12);color:var(--text-tertiary)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--surface-raised);border:1px solid var(--border);color:var(--text);padding:10px 20px;border-radius:8px;font-size:13px;opacity:0;transition:all .3s;z-index:1000;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.site-footer{text-align:center;padding:32px 24px;border-top:1px solid var(--border);color:var(--text-tertiary);font-size:12px}
+@media(max-width:640px){
+.navbar{padding:0 16px}
+.nav-links{display:none}
+.nav-toggle{display:block}
+.hero h1{font-size:24px}
+.arch-grid{grid-template-columns:1fr}
+.hero{padding:32px 16px 24px}
+.widget-section{padding:0 16px 32px}
+}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <a href="index.html" class="active" class="nav-logo">SWNF</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Главная</a></li>
+    <li><a href="api.html">API</a></li>
+    <li><a href="about.html">О проекте</a></li>
+    <li><a href="whitepaper.html">Whitepaper</a></li>
+    <li><a href="roadmap.html">Roadmap</a></li>
+    <li><a href="team.html">Команда</a></li>
+    <li><a href="tokenomics.html">Токеномика</a></li>
+    <li><a href="contact.html">Контакты</a></li>
+  </ul>
+  <button class="nav-toggle" onclick="alert('Меню: Главная, API, О проекте, Контакты')">☰</button>
+</nav>
+<section class="hero">
+  <h1>SwapToken-NFT</h1>
+  <p>NFT / DeFi на TON и приватном блокчейне SwapToken (Satoshi). Токенизация RWA.</p>
+  <div class="contract-box" onclick="copyToClipboard(this.querySelector('span').innerText)" title="Нажмите, чтобы скопировать">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+    <span>EQCnuAkqB_ZC8fji5JNJGh9WbsVrCprOmgKz1j60aGKHTE63</span>
+  </div>
+  <div class="links-row">
+    <a href="https://dorahacks.io/buidl/13438" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>DoraHacks</a>
+    <a href="https://github.com/SwapTokenNFT" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a>
+    <a href="https://t.me/NFTswaptoken_bot" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>Telegram</a>
+    <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>GetGems</a>
+    <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v12"/><path d="M6 12h12"/></svg>Blum</a>
+  </div>
+</section>
+<section class="widget-section">
+  <div class="widget-frame">
+    <div class="swnf-widget">
+      <div class="swnf-header">
+        <div class="swnf-title">SwapToken-NFT (SWNF)</div>
+        <div class="swnf-sub">EQCnuAkqB_ZC8fji5JNJGh9WbsVrCprOmgKz1j60aGKHTE63</div>
+      </div>
+      <div class="swnf-tabs" role="tablist">
+        <button class="swnf-tab active" role="tab" onclick="switchTab(0)" aria-selected="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Алгоритм работы
+        </button>
+        <button class="swnf-tab" role="tab" onclick="switchTab(1)" aria-selected="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Дорожная карта
+        </button>
+        <button class="swnf-tab" role="tab" onclick="switchTab(2)" aria-selected="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="6" rx="2"/><rect x="2" y="15" width="20" height="6" rx="2"/><line x1="6" y1="9" x2="6" y2="15"/><line x1="18" y1="9" x2="18" y2="15"/></svg>Архитектура
+        </button>
+        <button class="swnf-tab" role="tab" onclick="switchTab(3)" aria-selected="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>Улучшения
+        </button>
+      </div>
+      <div class="swnf-panel active" role="tabpanel">
+        <div class="stage entry" data-stage="entry">
+          <button class="stage-header" onclick="toggleStage(this)">
+            <div class="stage-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg></div>
+            <span class="stage-title">Entry Point — Точка входа</span>
+            <svg class="stage-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="stage-body">
+            <div class="stage-content">
+              <p>Пользователь инициирует взаимодействие через Telegram-бота или веб-интерфейс. Система идентифицирует кошелёк TON и проверяет базовые права доступа.</p>
+              <ul><li>Подключение TON-кошелька (TonConnect)</li><li>Верификация подписи и nonce</li><li>Определение роли: гость, держатель NFT, админ клуба</li><li>Роутинг на соответствующий сценарий</li></ul>
+              <button class="intent-btn" onclick="sendIntent('Доработай Entry Point: добавить поддержку мульти-кошельков и SSO через Telegram WebApp')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Запросить доработку Entry Point
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="stage security" data-stage="security">
+          <button class="stage-header" onclick="toggleStage(this)">
+            <div class="stage-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <span class="stage-title">Security — Безопасность</span>
+            <svg class="stage-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="stage-body">
+            <div class="stage-content">
+              <p>Многоуровневая проверка перед доступом к операциям с токенами и RWA-активами. Wallet Guard агент сканирует транзакции в реальном времени.</p>
+              <ul><li>Проверка whitelist/blacklist адресов</li><li>Анализ рисков через AI Supervisor</li><li>Двухфакторная верификация критичных операций</li><li>Rate limiting и анти-фрод эвристики</li></ul>
+              <button class="intent-btn" onclick="sendIntent('Усиль Security: интегрируй анализ on-chain рисков и проактивное оповещение Wallet Guard')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Запросить доработку Security
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="stage orchestration" data-stage="orchestration">
+          <button class="stage-header" onclick="toggleStage(this)">
+            <div class="stage-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.5" y1="13" x2="15.5" y2="17"/><line x1="15.5" y1="7" x2="8.5" y2="11"/></svg></div>
+            <span class="stage-title">Orchestration — Оркестрация</span>
+            <svg class="stage-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="stage-body">
+            <div class="stage-content">
+              <p>Центральный Orchestrator управляет 8 агентами, распределяет задачи и обеспечивает согласованность состояний между TON-контрактом, backend и Telegram.</p>
+              <ul><li>Маршрутизация intent-запросов к целевым агентам</li><li>Состояние FSM для каждой пользовательской сессии</li><li>Приоритизация: Marketing → Customer Success → Analytics</li><li>Синхронизация событий через event bus</li></ul>
+              <button class="intent-btn" onclick="sendIntent('Оптимизируй Orchestration: добавь circuit breaker и приоритетные очереди для агентов')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Запросить доработку Orchestration
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="stage execution" data-stage="execution">
+          <button class="stage-header" onclick="toggleStage(this)">
+            <div class="stage-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+            <span class="stage-title">Execution — Исполнение</span>
+            <svg class="stage-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="stage-body">
+            <div class="stage-content">
+              <p>Финальное выполнение операций: минтинг NFT, переводы SWNF, обновление метаданных RWA, взаимодействие с контрактом.</p>
+              <ul><li>Генерация и подпись транзакций через SDK</li><li>Обновление IPFS-метаданных коллекции</li><li>Callback-уведомления в Telegram Bot</li><li>Запись аудит-лога для Compliance</li></ul>
+              <button class="intent-btn" onclick="sendIntent('Улучши Execution: добавь batch-операции и optimistic UI для минтинга NFT')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Запросить доработку Execution
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swnf-panel" role="tabpanel">
+        <div class="roadmap-item"><div class="roadmap-dot done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="roadmap-content"><div class="roadmap-title">MVP Skeleton</div><div class="roadmap-desc">Базовая структура репозитория, FastAPI backend, заготовка TON-контракта</div><div class="roadmap-date">Q2 2026 — Выполнено</div></div></div>
+        <div class="roadmap-item"><div class="roadmap-dot done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="roadmap-content"><div class="roadmap-title">Telegram Bot + TonConnect</div><div class="roadmap-desc">Интеграция кошелька, базовые команды, верификация подписи</div><div class="roadmap-date">Q2 2026 — Выполнено</div></div></div>
+        <div class="roadmap-item"><div class="roadmap-dot active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/></svg></div><div class="roadmap-content"><div class="roadmap-title">Агентная архитектура v1</div><div class="roadmap-desc">Orchestrator, Marketing Agent, Wallet Guard, AI Supervisor</div><div class="roadmap-date">Q3 2026 — В процессе</div></div></div>
+        <div class="roadmap-item"><div class="roadmap-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg></div><div class="roadmap-content"><div class="roadmap-title">RWA токенизация</div><div class="roadmap-desc">Интеграция приватного блокчейна SwapToken (Satoshi), мосты ликвидности</div><div class="roadmap-date">Q4 2026 — Запланировано</div></div></div>
+        <div class="roadmap-item"><div class="roadmap-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg></div><div class="roadmap-content"><div class="roadmap-title">Strategic Growth Agent</div><div class="roadmap-desc">Полная автоматизация маркетинга, аналитики и поддержки пользователей</div><div class="roadmap-date">Q1 2027 — Запланировано</div></div></div>
+      </div>
+      <div class="swnf-panel" role="tabpanel">
+        <div class="arch-grid">
+          <div class="arch-card"><div class="arch-card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="6" rx="2"/><rect x="2" y="15" width="20" height="6" rx="2"/><line x1="6" y1="9" x2="6" y2="15"/><line x1="18" y1="9" x2="18" y2="15"/></svg>Backend</div><div class="arch-card-desc">FastAPI + Python-агенты. Orchestrator управляет жизненным циклом задач.</div><div class="arch-card-meta">FastAPI, Celery, Redis</div></div>
+          <div class="arch-card"><div class="arch-card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>TON Chain</div><div class="arch-card-desc">FunC-контракты для NFT и DeFi-операций. Минтинг, трансферы, стейкинг.</div><div class="arch-card-meta">FunC, TON SDK, TonConnect</div></div>
+          <div class="arch-card"><div class="arch-card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>Telegram Bot</div><div class="arch-card-desc">Интерфейс пользователя. WebApp для сложных сценариев, inline-кнопки для быстрых.</div><div class="arch-card-meta">aiogram, WebApp, MTProto</div></div>
+          <div class="arch-card"><div class="arch-card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.5" y1="13" x2="15.5" y2="17"/><line x1="15.5" y1="7" x2="8.5" y2="11"/></svg>Agent Mesh</div><div class="arch-card-desc">8 агентов: Strategic Growth, Marketing, Customer Success, Club, Economy, Wallet Guard, AI Supervisor.</div><div class="arch-card-meta">AsyncIO, gRPC, Event Bus</div></div>
+          <div class="arch-card"><div class="arch-card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>SDK</div><div class="arch-card-desc">TypeScript/Python SDK для интеграции сторонних dApp и маркетплейсов.</div><div class="arch-card-meta">npm, PyPI, REST API</div></div>
+          <div class="arch-card"><div class="arch-card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>Data Layer</div><div class="arch-card-desc">PostgreSQL для состояний, ClickHouse для аналитики, IPFS для метаданных NFT.</div><div class="arch-card-meta">PostgreSQL, ClickHouse, IPFS</div></div>
+        </div>
+      </div>
+      <div class="swnf-panel" role="tabpanel">
+        <div class="imp-list">
+          <div class="imp-item"><div class="imp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="imp-body"><div class="imp-title">Batch-минтинг NFT</div><div class="imp-desc">Оптимизация газа через агрегацию нескольких минтов в одну транзакцию с Merkle-деревом.</div><span class="imp-priority high">Высокий приоритет</span></div></div>
+          <div class="imp-item"><div class="imp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="imp-body"><div class="imp-title">Club Economy v2</div><div class="imp-desc">Динамическое ценообразование членства, реферальные многоуровневые вознаграждения.</div><span class="imp-priority high">Высокий приоритет</span></div></div>
+          <div class="imp-item"><div class="imp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><div class="imp-body"><div class="imp-title">RWA Oracle Bridge</div><div class="imp-desc">Подключение оффчейн-данных о реальных активах через децентрализованные оракулы.</div><span class="imp-priority medium">Средний приоритет</span></div></div>
+          <div class="imp-item"><div class="imp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div><div class="imp-body"><div class="imp-title">Dark Mode для WebApp</div><div class="imp-desc">Адаптивная тема Telegram WebApp с полной поддержкой переменных дизайн-системы.</div><span class="imp-priority low">Низкий приоритет</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer class="site-footer">
+  SwapToken-NFT (SWNF) · NFT / DeFi на TON · Контракт: EQCnuAkqB_ZC8fji5JNJGh9WbsVrCprOmgKz1j60aGKHTE63<br>
+  <a href="https://dorahacks.io/buidl/13438" style="color:var(--text-tertiary)">DoraHacks</a> · <a href="https://github.com/SwapTokenNFT" style="color:var(--text-tertiary)">GitHub</a> · <a href="https://t.me/NFTswaptoken_bot" style="color:var(--text-tertiary)">Telegram</a>
+</footer>
+<div class="toast" id="toast">Скопировано в буфер обмена</div>
+<script>
+function switchTab(index){
+  var tabs=document.querySelectorAll('.swnf-tab');
+  var panels=document.querySelectorAll('.swnf-panel');
+  tabs.forEach(function(t,i){t.classList.toggle('active',i===index);t.setAttribute('aria-selected',i===index);});
+  panels.forEach(function(p,i){p.style.display=i===index?'block':'none';});
+}
+function toggleStage(header){
+  var stage=header.closest('.stage');
+  var wasOpen=stage.classList.contains('open');
+  document.querySelectorAll('.stage.open').forEach(function(s){s.classList.remove('open');s.querySelector('.stage-body').style.maxHeight='0';});
+  if(!wasOpen){stage.classList.add('open');var body=stage.querySelector('.stage-body');body.style.maxHeight=body.scrollHeight+'px';}
+}
+function sendIntent(text){
+  if(window.sendPrompt){window.sendPrompt(text);}else{
+    navigator.clipboard.writeText(text).then(function(){showToast('Скопировано! Отправьте в Telegram @NFTswaptoken_bot');}).catch(function(){showToast(text);});
+  }
+}
+function copyToClipboard(text){
+  navigator.clipboard.writeText(text).then(function(){showToast('Адрес контракта скопирован');});
+}
+function showToast(msg){
+  var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);
+}
+</script>
+</body>
+</html>

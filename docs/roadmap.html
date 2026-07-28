@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SwapToken-NFT — Roadmap</title>
+<style>
+:root{--bg:#0b0b10;--surface:#13131f;--surface-raised:#1a1a2e;--border:#232336;--text:#e2e8f0;--text-secondary:#94a3b8;--text-tertiary:#64748b;--accent-blue:#3b82f6;--accent-green:#22c55e;--accent-purple:#a855f7;--accent-red:#ef4444;--radius:10px;--font-sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;--font-mono:'SFMono-Regular',Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.navbar{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:60px;border-bottom:1px solid var(--border);background:rgba(11,11,16,0.95);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100}
+.nav-logo{font-size:20px;font-weight:700;background:linear-gradient(90deg,var(--accent-blue),var(--accent-purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;letter-spacing:-0.5px}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:13px;font-weight:500;transition:color .2s;padding:6px 0;border-bottom:2px solid transparent;white-space:nowrap}
+.nav-links a:hover,.nav-links a.active{color:var(--text);border-bottom-color:var(--accent-blue)}
+.nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer}
+.container{max-width:800px;margin:0 auto;padding:48px 24px}
+.page-title{font-size:28px;font-weight:700;margin-bottom:8px}
+.page-sub{color:var(--text-secondary);font-size:15px;margin-bottom:40px}
+.timeline{position:relative;padding-left:32px}
+.timeline::before{content:'';position:absolute;left:11px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent-green) 0%,var(--accent-blue) 50%,var(--border) 50%,var(--border) 100%)}
+.timeline-item{position:relative;margin-bottom:32px}
+.timeline-dot{position:absolute;left:-32px;top:2px;width:24px;height:24px;border-radius:50%;background:var(--surface-raised);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;z-index:1}
+.timeline-dot.done{background:var(--accent-green);border-color:var(--accent-green);color:#fff}
+.timeline-dot.active{background:var(--accent-blue);border-color:var(--accent-blue);color:#fff}
+.timeline-dot.upcoming{background:var(--surface-raised);border-color:var(--border)}
+.timeline-dot svg{width:12px;height:12px}
+.timeline-content{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.timeline-date{font-size:11px;color:var(--text-tertiary);font-family:var(--font-mono);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px}
+.timeline-title{font-size:16px;font-weight:600;margin-bottom:8px}
+.timeline-desc{font-size:14px;color:var(--text-secondary);line-height:1.6}
+.timeline-tags{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.timeline-tag{font-size:11px;padding:3px 10px;border-radius:4px;font-weight:500}
+.timeline-tag.done{background:rgba(34,197,94,0.12);color:var(--accent-green)}
+.timeline-tag.active{background:rgba(59,130,246,0.12);color:var(--accent-blue)}
+.timeline-tag.upcoming{background:rgba(100,116,139,0.12);color:var(--text-tertiary)}
+.quarter-label{font-size:13px;font-weight:600;color:var(--text-tertiary);margin:24px 0 16px -32px;text-transform:uppercase;letter-spacing:1px}
+.site-footer{text-align:center;padding:32px 24px;border-top:1px solid var(--border);color:var(--text-tertiary);font-size:12px}
+@media(max-width:768px){
+.nav-links{display:none}
+.nav-toggle{display:block}
+.container{padding:32px 16px}
+.page-title{font-size:22px}
+}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">SWNF</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Главная</a></li>
+    <li><a href="api.html">API</a></li>
+    <li><a href="about.html">О проекте</a></li>
+    <li><a href="whitepaper.html">Whitepaper</a></li>
+    <li><a href="roadmap.html" class="active">Roadmap</a></li>
+    <li><a href="team.html">Команда</a></li>
+    <li><a href="tokenomics.html">Токеномика</a></li>
+    <li><a href="contact.html">Контакты</a></li>
+  </ul>
+  <button class="nav-toggle" onclick="alert('Меню')">☰</button>
+</nav>
+<div class="container">
+  <h1 class="page-title">Roadmap</h1>
+  <p class="page-sub">Детальная дорожная карта развития SwapToken-NFT от MVP до полноценной DAO.</p>
+
+  <div class="timeline">
+    <div class="quarter-label">Q2 2026 — Выполнено</div>
+    <div class="timeline-item">
+      <div class="timeline-dot done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="timeline-content">
+        <div class="timeline-date">Май — Июнь 2026</div>
+        <div class="timeline-title">MVP Skeleton</div>
+        <div class="timeline-desc">Базовая структура репозитория, FastAPI backend с заглушками endpoint'ов, заготовка FunC-контракта для NFT-коллекции. Настройка CI/CD и линтеров.</div>
+        <div class="timeline-tags"><span class="timeline-tag done">Backend</span><span class="timeline-tag done">DevOps</span></div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="timeline-content">
+        <div class="timeline-date">Июнь 2026</div>
+        <div class="timeline-title">Telegram Bot + TonConnect</div>
+        <div class="timeline-desc">Рабочий бот на aiogram с inline-кнопками, интеграция TonConnect для подключения кошелька, верификация подписи и nonce. Первая команда /mint для тестовой коллекции.</div>
+        <div class="timeline-tags"><span class="timeline-tag done">Bot</span><span class="timeline-tag done">TonConnect</span></div>
+      </div>
+    </div>
+
+    <div class="quarter-label">Q3 2026 — В процессе</div>
+    <div class="timeline-item">
+      <div class="timeline-dot active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/></svg></div>
+      <div class="timeline-content">
+        <div class="timeline-date">Июль — Сентябрь 2026</div>
+        <div class="timeline-title">Агентная архитектура v1</div>
+        <div class="timeline-desc">Запуск Orchestrator с Redis ZSET очередями, регистрация 8 агентов. Circuit breaker для TON API и Telegram API. Event bus для межагентной коммуникации. FSM состояний пользователя.</div>
+        <div class="timeline-tags"><span class="timeline-tag active">Agents</span><span class="timeline-tag active">Redis</span><span class="timeline-tag active">Orchestrator</span></div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot upcoming"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg></div>
+      <div class="timeline-content">
+        <div class="timeline-date">Август — Сентябрь 2026</div>
+        <div class="timeline-title">WebApp + SSO</div>
+        <div class="timeline-desc">Telegram WebApp с верификацией initData, мульти-кошелёк (до 5 адресов), переключение primary. Оптимистичный UI для минтинга.</div>
+        <div class="timeline-tags"><span class="timeline-tag upcoming">WebApp</span><span class="timeline-tag upcoming">SSO</span></div>
+      </div>
+    </div>
+
+    <div class="quarter-label">Q4 2026 — Запланировано</div>
+    <div class="timeline-item">
+      <div class="timeline-dot upcoming"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg></div>
+      <div class="timeline-content">
+        <div class="timeline-date">Октябрь — Декабрь 2026</div>
+        <div class="timeline-title">RWA Токенизация</div>
+        <div class="timeline-desc">Интеграция приватного блокчейна SwapToken (Satoshi). Мосты ликвидности между TON и SwapToken. Первые RWA-активы: недвижимость и commodities через оракулы.</div>
+        <div class="timeline-tags"><span class="timeline-tag upcoming">RWA</span><span class="timeline-tag upcoming">Bridge</span><span class="timeline-tag upcoming">Oracle</span></div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot upcoming"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg></div>
+      <div class="timeline-content">
+        <div class="timeline-date">Ноябрь — Декабрь 2026</div>
+        <div class="timeline-title">GetGems + Blum Integration</div>
+        <div class="timeline-desc">Листинг коллекции на GetGems. Токен SWNF_P13io на Blum Memepad. Интеграция SDK для сторонних dApp.</div>
+        <div class="timeline-tags"><span class="timeline-tag upcoming">Marketplace</span><span class="timeline-tag upcoming">Token</span></div>
+      </div>
+    </div>
+
+    <div class="quarter-label">Q1 2027 — Запланировано</div>
+    <div class="timeline-item">
+      <div class="timeline-dot upcoming"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg></div>
+      <div class="timeline-content">
+        <div class="timeline-date">Январь — Март 2027</div>
+        <div class="timeline-title">Strategic Growth Agent</div>
+        <div class="timeline-desc">Полная автоматизация маркетинга, аналитики и поддержки. AI-прогнозирование метрик роста, автоматическая оптимизация кампаний.</div>
+        <div class="timeline-tags"><span class="timeline-tag upcoming">AI</span><span class="timeline-tag upcoming">Automation</span></div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot upcoming"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width:1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg></div>
+      <div class="timeline-content">
+        <div class="timeline-date">Март 2027</div>
+        <div class="timeline-title">DAO v1</div>
+        <div class="timeline-desc">Snapshot-голосование для держателей NFT. Мультиподпись для казначейства. Первые governance-пропозалы.</div>
+        <div class="timeline-tags"><span class="timeline-tag upcoming">DAO</span><span class="timeline-tag upcoming">Governance</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="site-footer">
+  SwapToken-NFT (SWNF) · Контракт: EQCnuAkqB_ZC8fji5JNJGh9WbsVrCprOmgKz1j60aGKHTE63
+</footer>
+</body>
+</html>

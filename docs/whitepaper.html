@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SwapToken-NFT — Whitepaper</title>
+<style>
+:root{--bg:#0b0b10;--surface:#13131f;--surface-raised:#1a1a2e;--border:#232336;--text:#e2e8f0;--text-secondary:#94a3b8;--text-tertiary:#64748b;--accent-blue:#3b82f6;--accent-green:#22c55e;--accent-purple:#a855f7;--accent-red:#ef4444;--radius:10px;--font-sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;--font-mono:'SFMono-Regular',Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.navbar{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:60px;border-bottom:1px solid var(--border);background:rgba(11,11,16,0.95);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100}
+.nav-logo{font-size:20px;font-weight:700;background:linear-gradient(90deg,var(--accent-blue),var(--accent-purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;letter-spacing:-0.5px}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:13px;font-weight:500;transition:color .2s;padding:6px 0;border-bottom:2px solid transparent;white-space:nowrap}
+.nav-links a:hover,.nav-links a.active{color:var(--text);border-bottom-color:var(--accent-blue)}
+.nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer}
+.container{max-width:800px;margin:0 auto;padding:48px 24px}
+.page-title{font-size:28px;font-weight:700;margin-bottom:8px}
+.page-sub{color:var(--text-secondary);font-size:15px;margin-bottom:40px}
+.toc{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:40px}
+.toc h3{font-size:14px;font-weight:600;margin-bottom:12px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.5px}
+.toc ul{list-style:none}
+.toc li{margin-bottom:8px}
+.toc a{color:var(--text-secondary);text-decoration:none;font-size:14px;transition:color .2s}
+.toc a:hover{color:var(--accent-blue)}
+.toc a::before{content:"# ";color:var(--text-tertiary)}
+.section{margin-bottom:48px;scroll-margin-top:80px}
+.section h2{font-size:22px;font-weight:600;margin-bottom:16px;color:var(--text)}
+.section h3{font-size:18px;font-weight:600;margin:24px 0 12px;color:var(--text)}
+.section p{font-size:15px;color:var(--text-secondary);margin-bottom:14px;line-height:1.7}
+.section ul{padding-left:20px;margin-bottom:14px}
+.section li{font-size:15px;color:var(--text-secondary);margin-bottom:8px;line-height:1.6}
+.diagram{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:20px 0;text-align:center}
+.diagram-title{font-size:14px;font-weight:600;margin-bottom:16px;color:var(--text)}
+.diagram-flow{display:flex;flex-direction:column;gap:12px;align-items:center}
+.diagram-node{background:var(--surface-raised);border:1px solid var(--border);border-radius:8px;padding:12px 20px;font-size:13px;color:var(--text-secondary);min-width:200px}
+.diagram-node.primary{border-color:var(--accent-blue);color:var(--text)}
+.diagram-arrow{color:var(--text-tertiary);font-size:18px}
+.diagram-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.diagram-row .diagram-node{min-width:140px}
+.site-footer{text-align:center;padding:32px 24px;border-top:1px solid var(--border);color:var(--text-tertiary);font-size:12px}
+@media(max-width:768px){
+.nav-links{display:none}
+.nav-toggle{display:block}
+.container{padding:32px 16px}
+.page-title{font-size:22px}
+}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">SWNF</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Главная</a></li>
+    <li><a href="api.html">API</a></li>
+    <li><a href="about.html">О проекте</a></li>
+    <li><a href="whitepaper.html" class="active">Whitepaper</a></li>
+    <li><a href="roadmap.html">Roadmap</a></li>
+    <li><a href="team.html">Команда</a></li>
+    <li><a href="tokenomics.html">Токеномика</a></li>
+    <li><a href="contact.html">Контакты</a></li>
+  </ul>
+  <button class="nav-toggle" onclick="alert('Меню')">☰</button>
+</nav>
+<div class="container">
+  <h1 class="page-title">Whitepaper</h1>
+  <p class="page-sub">Технический документ SwapToken-NFT: архитектура, механизмы консенсуса, токеномика и безопасность.</p>
+
+  <div class="toc">
+    <h3>Содержание</h3>
+    <ul>
+      <li><a href="#abstract">1. Резюме</a></li>
+      <li><a href="#problem">2. Проблема и решение</a></li>
+      <li><a href="#architecture">3. Архитектура системы</a></li>
+      <li><a href="#agents">4. Агентная сеть</a></li>
+      <li><a href="#tokenomics">5. Токеномика SWNF</a></li>
+      <li><a href="#security">6. Модель безопасности</a></li>
+      <li><a href="#governance">7. Управление и DAO</a></li>
+      <li><a href="#references">8. Ссылки</a></li>
+    </ul>
+  </div>
+
+  <div class="section" id="abstract">
+    <h2>1. Резюме</h2>
+    <p>SwapToken-NFT (SWNF) — это децентрализованная платформа для токенизации реальных активов (RWA) через NFT на блокчейне TON и приватном блокчейне SwapToken (Satoshi). Проект объединяет DeFi-инструменты, агентную автоматизацию и Telegram-интерфейс для создания доступной экосистемы цифровых активов.</p>
+    <p>Ключевые особенности: мульти-кошелёк с SSO через Telegram, 8 AI-агентов для оркестрации, circuit breaker для защиты внешних API, приоритетные очереди задач и полная интеграция с TON-экосистемой.</p>
+  </div>
+
+  <div class="section" id="problem">
+    <h2>2. Проблема и решение</h2>
+    <h3>2.1 Проблема</h3>
+    <p>Традиционные NFT-проекты страдают от фрагментации: отдельные маркетплейсы, сложные интерфейсы, отсутствие связи с реальными активами и высокий порог входа для не-технических пользователей.</p>
+    <h3>2.2 Решение</h3>
+    <ul>
+      <li><strong>Telegram как единый вход</strong> — миллиарды пользователей уже имеют аккаунт</li>
+      <li><strong>RWA-токенизация</strong> — каждый NFT обеспечен реальным активом через оракулы</li>
+      <li><strong>Агентная автоматизация</strong> — AI-агенты выполняют рутину: маркетинг, поддержку, аналитику</li>
+      <li><strong>Двухцепочечная архитектура</strong> — TON для публичных операций, SwapToken для институциональных</li>
+    </ul>
+  </div>
+
+  <div class="section" id="architecture">
+    <h2>3. Архитектура системы</h2>
+    <div class="diagram">
+      <div class="diagram-title">Общая архитектура</div>
+      <div class="diagram-flow">
+        <div class="diagram-node primary">Пользователь (Telegram/WebApp)</div>
+        <div class="diagram-arrow">↓</div>
+        <div class="diagram-node">Entry Point / SSO</div>
+        <div class="diagram-arrow">↓</div>
+        <div class="diagram-node">Orchestrator + 8 Agents</div>
+        <div class="diagram-arrow">↓</div>
+        <div class="diagram-row">
+          <div class="diagram-node">TON Chain</div>
+          <div class="diagram-node">SwapToken Chain</div>
+          <div class="diagram-node">IPFS / Data</div>
+        </div>
+      </div>
+    </div>
+    <p>Система построена по принципу микросервисной агентной сети. Каждый агент — изолированный процесс с чётко определённым API, взаимодействующий через Redis Event Bus и gRPC.</p>
+  </div>
+
+  <div class="section" id="agents">
+    <h2>4. Агентная сеть</h2>
+    <p>8 специализированных агентов работают под управлением Orchestrator с приоритетными очередями (Redis ZSET) и защитой circuit breaker:</p>
+    <ul>
+      <li><strong>Orchestrator (CRITICAL)</strong> — маршрутизация задач, FSM состояний, circuit breaker registry</li>
+      <li><strong>Wallet Guard (CRITICAL)</strong> — сканирование адресов, whitelist/blacklist, риск-скоринг</li>
+      <li><strong>AI Supervisor (HIGH)</strong> — мониторинг здоровья, алертинг, метрики</li>
+      <li><strong>Marketing (NORMAL)</strong> — кампании, сегментация, A/B тесты</li>
+      <li><strong>Strategic Growth (NORMAL)</strong> — аналитика роста, прогнозирование</li>
+      <li><strong>Customer Success (LOW)</strong> — поддержка, onboarding, тикеты</li>
+      <li><strong>Club Agent (LOW)</strong> — управление доступами, роли, верификация</li>
+      <li><strong>Club Economy (LOW)</strong> — рефералы, staking, динамическое ценообразование</li>
+    </ul>
+  </div>
+
+  <div class="section" id="tokenomics">
+    <h2>5. Токеномика SWNF</h2>
+    <p>Общий supply: 1 000 000 000 SWNF. Распределение:</p>
+    <ul>
+      <li><strong>Community Rewards (20%)</strong> — airdrop, staking, участие в экосистеме</li>
+      <li><strong>Liquidity & DEX (15%)</strong> — пулы ликвидности, маркет-мейкинг</li>
+      <li><strong>Team & Advisors (15%)</strong> — 2-летний vesting с cliff 6 месяцев</li>
+      <li><strong>Treasury (20%)</strong> — развитие проекта, гранты, партнёрства</li>
+      <li><strong>RWA Reserve (20%)</strong> — обеспечение реальными активами</li>
+      <li><strong>Marketing (10%)</strong> — кампании, инфлюенсеры, events</li>
+    </ul>
+  </div>
+
+  <div class="section" id="security">
+    <h2>6. Модель безопасности</h2>
+    <p>Многоуровневая защита на всех этапах:</p>
+    <ul>
+      <li><strong>Уровень 1 — SSO</strong> — верификация Telegram initData через HMAC-SHA256</li>
+      <li><strong>Уровень 2 — TonConnect Proof</strong> — подпись nonce для подтверждения владения кошельком</li>
+      <li><strong>Уровень 3 — Circuit Breaker</strong> — автоматическое отключение при сбоях TON API / Telegram API</li>
+      <li><strong>Уровень 4 — AI Supervisor</strong> — аномалии в паттернах транзакций, проактивный алертинг</li>
+      <li><strong>Уровень 5 — On-chain Audit</strong> — все операции записываются в аудит-лог для Compliance</li>
+    </ul>
+  </div>
+
+  <div class="section" id="governance">
+    <h2>7. Управление и DAO</h2>
+    <p>Постепенный переход к DAO-управлению в 3 этапа:</p>
+    <ul>
+      <li><strong>Этап 1 (Q3 2026)</strong> — совет из держателей NFT, голосование за улучшения</li>
+      <li><strong>Этап 2 (Q2 2027)</strong> — Snapshot голосование по параметрам токеномики</li>
+      <li><strong>Этап 3 (Q4 2027)</strong> — полный DAO с мультиподписью и делегированием</li>
+    </ul>
+  </div>
+
+  <div class="section" id="references">
+    <h2>8. Ссылки</h2>
+    <ul>
+      <li>Контракт TON: <code style="font-family:var(--font-mono);background:var(--surface);padding:2px 6px;border-radius:4px;">EQCnuAkqB_ZC8fji5JNJGh9WbsVrCprOmgKz1j60aGKHTE63</code></li>
+      <li>GitHub: <a href="https://github.com/SwapTokenNFT" style="color:var(--accent-blue)">github.com/SwapTokenNFT</a></li>
+      <li>DoraHacks: <a href="https://dorahacks.io/buidl/13438" style="color:var(--accent-blue)">dorahacks.io/buidl/13438</a></li>
+      <li>Telegram: <a href="https://t.me/NFTswaptoken_bot" style="color:var(--accent-blue)">@NFTswaptoken_bot</a></li>
+    </ul>
+  </div>
+</div>
+<footer class="site-footer">
+  SwapToken-NFT (SWNF) · Контракт: EQCnuAkqB_ZC8fji5JNJGh9WbsVrCprOmgKz1j60aGKHTE63
+</footer>
+</body>
+</html>

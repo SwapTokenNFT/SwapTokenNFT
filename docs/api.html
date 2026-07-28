@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SwapToken-NFT — API Documentation</title>
+<style>
+:root{--bg:#0b0b10;--surface:#13131f;--surface-raised:#1a1a2e;--border:#232336;--text:#e2e8f0;--text-secondary:#94a3b8;--text-tertiary:#64748b;--accent-blue:#3b82f6;--accent-green:#22c55e;--accent-purple:#a855f7;--accent-red:#ef4444;--radius:10px;--font-sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;--font-mono:'SFMono-Regular',Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.navbar{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:60px;border-bottom:1px solid var(--border);background:rgba(11,11,16,0.95);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100}
+.nav-logo{font-size:20px;font-weight:700;background:linear-gradient(90deg,var(--accent-blue),var(--accent-purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;letter-spacing:-0.5px}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{color:var(--text-secondary);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s;padding:6px 0;border-bottom:2px solid transparent}
+.nav-links a:hover,.nav-links a.active{color:var(--text);border-bottom-color:var(--accent-blue)}
+.nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer}
+.container{max-width:960px;margin:0 auto;padding:40px 24px}
+.page-title{font-size:28px;font-weight:700;margin-bottom:8px}
+.page-sub{color:var(--text-secondary);font-size:15px;margin-bottom:32px}
+.section{margin-bottom:40px}
+.section-title{font-size:20px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section-title svg{width:20px;height:20px;color:var(--accent-blue)}
+.endpoint{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden}
+.endpoint-header{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--surface);cursor:pointer;border:none;width:100%;font-family:inherit;font-size:14px;color:var(--text);text-align:left}
+.endpoint-header:hover{background:var(--surface-raised)}
+.method-badge{font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;text-transform:uppercase;font-family:var(--font-mono)}
+.method-post{background:rgba(34,197,94,0.15);color:var(--accent-green)}
+.method-get{background:rgba(59,130,246,0.15);color:var(--accent-blue)}
+.endpoint-path{font-family:var(--font-mono);font-size:13px;color:var(--text-secondary)}
+.endpoint-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.endpoint.open .endpoint-body{max-height:1200px}
+.endpoint-content{padding:0 16px 16px;background:var(--surface)}
+.endpoint-desc{font-size:14px;color:var(--text-secondary);margin-bottom:16px;line-height:1.6}
+.param-table{width:100%;border-collapse:collapse;margin-bottom:16px;font-size:13px}
+.param-table th{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);color:var(--text-tertiary);font-weight:500;font-size:12px;text-transform:uppercase}
+.param-table td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--text-secondary)}
+.param-table td:first-child{font-family:var(--font-mono);color:var(--text);font-size:12px}
+.param-type{color:var(--accent-purple);font-family:var(--font-mono);font-size:12px}
+.param-required{color:var(--accent-red);font-size:11px}
+.code-block{background:#0a0a14;border:1px solid var(--border);border-radius:8px;padding:16px;font-family:var(--font-mono);font-size:12px;line-height:1.7;overflow-x:auto;color:var(--text-secondary);margin-bottom:16px}
+.code-block .key{color:var(--accent-blue)}
+.code-block .str{color:var(--accent-green)}
+.code-block .num{color:var(--accent-purple)}
+.code-block .bool{color:var(--accent-red)}
+.code-label{font-size:11px;color:var(--text-tertiary);text-transform:uppercase;margin-bottom:6px;font-weight:500}
+.code-grid{display:grid;grid-template-columns:80px 1fr;gap:8px 16px;font-size:13px;margin-top:12px}
+.code-grid div:first-child{font-family:var(--font-mono);color:var(--text);font-weight:500}
+.site-footer{text-align:center;padding:32px 24px;border-top:1px solid var(--border);color:var(--text-tertiary);font-size:12px}
+@media(max-width:640px){
+.nav-links{display:none}
+.nav-toggle{display:block}
+.container{padding:24px 16px}
+.page-title{font-size:22px}
+.code-block{padding:12px;font-size:11px}
+}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">SWNF</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Главная</a></li>
+    <li><a href="api.html" class="active" class="active">API</a></li>
+    <li><a href="about.html">О проекте</a></li>
+    <li><a href="contact.html">Контакты</a></li>
+  </ul>
+  <button class="nav-toggle" onclick="alert('Меню: Главная, API, О проекте, Контакты')">☰</button>
+</nav>
+<div class="container">
+  <h1 class="page-title">API Documentation</h1>
+  <p class="page-sub">REST API и WebSocket события для интеграции с экосистемой SwapToken-NFT. Базовый URL: <code style="font-family:var(--font-mono);background:var(--surface);padding:2px 6px;border-radius:4px;">https://api.swaptoken-nft.io/v1</code></p>
+
+  <div class="section">
+    <h2 class="section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Аутентификация</h2>
+    <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">Все запросы требуют заголовка <code style="font-family:var(--font-mono);background:var(--surface);padding:2px 6px;border-radius:4px;">Authorization: Bearer &lt;jwt&gt;</code>, полученного через SSO Telegram или TonConnect proof.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Endpoints</h2>
+
+    <div class="endpoint">
+      <button class="endpoint-header" onclick="toggleEndpoint(this)">
+        <span class="method-badge method-post">POST</span>
+        <span class="endpoint-path">/auth/telegram-sso</span>
+      </button>
+      <div class="endpoint-body">
+        <div class="endpoint-content">
+          <p class="endpoint-desc">Авторизация через Telegram WebApp initData. Возвращает JWT и профиль пользователя с привязанными кошельками.</p>
+          <div class="code-label">Request body</div>
+          <div class="code-block">{<br>&nbsp;&nbsp;<span class="key">"init_data"</span>: <span class="str">"query_id=...&user=...&auth_date=...&hash=..."</span><br>}</div>
+          <table class="param-table">
+            <tr><th>Параметр</th><th>Тип</th><th>Обязательный</th><th>Описание</th></tr>
+            <tr><td>init_data</td><td class="param-type">string</td><td class="param-required">Да</td><td>Raw initData из Telegram.WebApp</td></tr>
+          </table>
+          <div class="code-label">Response 200</div>
+          <div class="code-block">{<br>&nbsp;&nbsp;<span class="key">"token"</span>: <span class="str">"eyJhbGciOiJIUzI1NiIs..."</span>,<br>&nbsp;&nbsp;<span class="key">"user"</span>: {<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"telegram_id"</span>: <span class="num">123456789</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"username"</span>: <span class="str">"username"</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"wallets"</span>: []<br>&nbsp;&nbsp;}<br>}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="endpoint">
+      <button class="endpoint-header" onclick="toggleEndpoint(this)">
+        <span class="method-badge method-post">POST</span>
+        <span class="endpoint-path">/wallets/connect</span>
+      </button>
+      <div class="endpoint-body">
+        <div class="endpoint-content">
+          <p class="endpoint-desc">Привязка нового TON-кошелька к профилю. Требует TonConnect proof для верификации владения адресом. Максимум 5 кошельков на пользователя.</p>
+          <div class="code-label">Request body</div>
+          <div class="code-block">{<br>&nbsp;&nbsp;<span class="key">"address"</span>: <span class="str">"EQCnuAkqB_ZC8fji5JNJGh9WbsVrCprOmgKz1j60aGKHTE63"</span>,<br>&nbsp;&nbsp;<span class="key">"wallet_type"</span>: <span class="str">"tonkeeper"</span>,<br>&nbsp;&nbsp;<span class="key">"proof"</span>: {<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"timestamp"</span>: <span class="num">1699123456</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"domain"</span>: <span class="str">"swaptoken-nft.io"</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"signature"</span>: <span class="str">"base64signature..."</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"payload"</span>: <span class="str">"nonce_abc123"</span><br>&nbsp;&nbsp;}<br>}</div>
+          <table class="param-table">
+            <tr><th>Параметр</th><th>Тип</th><th>Обязательный</th><th>Описание</th></tr>
+            <tr><td>address</td><td class="param-type">string</td><td class="param-required">Да</td><td>TON-адрес в raw или bounceable формате</td></tr>
+            <tr><td>wallet_type</td><td class="param-type">string</td><td class="param-required">Да</td><td>tonkeeper, mytonwallet, openmask</td></tr>
+            <tr><td>proof</td><td class="param-type">object</td><td class="param-required">Да</td><td>TonConnect proof payload</td></tr>
+          </table>
+          <div class="code-label">Response 200</div>
+          <div class="code-block">{<br>&nbsp;&nbsp;<span class="key">"wallet"</span>: {<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"id"</span>: <span class="str">"uuid"</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"address"</span>: <span class="str">"EQ..."</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"is_primary"</span>: <span class="bool">true</span><br>&nbsp;&nbsp;},<br>&nbsp;&nbsp;<span class="key">"primary"</span>: <span class="bool">true</span><br>}</div>
+          <div class="code-label">Response 400</div>
+          <div class="code-block">{<br>&nbsp;&nbsp;<span class="key">"detail"</span>: <span class="str">"Wallet limit reached"</span><br>}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="endpoint">
+      <button class="endpoint-header" onclick="toggleEndpoint(this)">
+        <span class="method-badge method-get">GET</span>
+        <span class="endpoint-path">/wallets</span>
+      </button>
+      <div class="endpoint-body">
+        <div class="endpoint-content">
+          <p class="endpoint-desc">Возвращает список всех привязанных кошельков текущего пользователя.</p>
+          <div class="code-label">Response 200</div>
+          <div class="code-block">{<br>&nbsp;&nbsp;<span class="key">"wallets"</span>: [<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"id"</span>: <span class="str">"uuid"</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"address"</span>: <span class="str">"EQ..."</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"wallet_type"</span>: <span class="str">"tonkeeper"</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"is_primary"</span>: <span class="bool">true</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"connected_at"</span>: <span class="str">"2026-07-25T12:00:00Z"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;]<br>}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="endpoint">
+      <button class="endpoint-header" onclick="toggleEndpoint(this)">
+        <span class="method-badge method-post">POST</span>
+        <span class="endpoint-path">/wallets/{wallet_id}/primary</span>
+      </button>
+      <div class="endpoint-body">
+        <div class="endpoint-content">
+          <p class="endpoint-desc">Назначает указанный кошелёк основным (primary) для операций по умолчанию.</p>
+          <table class="param-table">
+            <tr><th>Параметр</th><th>Тип</th><th>Обязательный</th><th>Описание</th></tr>
+            <tr><td>wallet_id</td><td class="param-type">uuid</td><td class="param-required">Да</td><td>ID кошелька из списка /wallets</td></tr>
+          </table>
+          <div class="code-label">Response 200</div>
+          <div class="code-block">{<br>&nbsp;&nbsp;<span class="key">"status"</span>: <span class="str">"ok"</span>,<br>&nbsp;&nbsp;<span class="key">"primary_wallet"</span>: <span class="str">"EQ..."</span><br>}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="endpoint">
+      <button class="endpoint-header" onclick="toggleEndpoint(this)">
+        <span class="method-badge method-post">POST</span>
+        <span class="endpoint-path">/orchestrator/dispatch</span>
+      </button>
+      <div class="endpoint-body">
+        <div class="endpoint-content">
+          <p class="endpoint-desc">Отправляет задачу в агентную сеть через Orchestrator. Задача попадает в приоритетную очередь Redis ZSET.</p>
+          <div class="code-label">Request body</div>
+          <div class="code-block">{<br>&nbsp;&nbsp;<span class="key">"agent"</span>: <span class="str">"marketing"</span>,<br>&nbsp;&nbsp;<span class="key">"action"</span>: <span class="str">"send_campaign"</span>,<br>&nbsp;&nbsp;<span class="key">"payload"</span>: {<span class="key">"segment"</span>: <span class="str">"nft_holders"</span>},<br>&nbsp;&nbsp;<span class="key">"priority"</span>: <span class="str">"normal"</span><br>}</div>
+          <div class="code-label">Response 202</div>
+          <div class="code-block">{<br>&nbsp;&nbsp;<span class="key">"task_id"</span>: <span class="str">"550e8400-e29b-41d4-a716-446655440000"</span>,<br>&nbsp;&nbsp;<span class="key">"queue_position"</span>: <span class="num">3</span>,<br>&nbsp;&nbsp;<span class="key">"estimated_start"</span>: <span class="str">"2026-07-25T12:00:05Z"</span><br>}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>WebSocket Events</h2>
+    <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">Подключение: <code style="font-family:var(--font-mono);background:var(--surface);padding:2px 6px;border-radius:4px;">wss://api.swaptoken-nft.io/v1/ws</code></p>
+    <div class="code-block">
+<span class="key">agent:wallet_guard:scan_complete</span> — завершено сканирование адреса<br>
+<span class="key">agent:marketing:campaign_sent</span> — рассылка выполнена<br>
+<span class="key">orchestrator:task_dispatched</span> — задача поставлена в очередь<br>
+<span class="key">orchestrator:agent_error</span> — ошибка агента<br>
+<span class="key">circuit_breaker:tripped</span> — circuit breaker перешёл в OPEN
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Коды ответов</h2>
+    <div class="code-grid">
+      <div>200</div><div>OK — запрос выполнен успешно</div>
+      <div>202</div><div>Accepted — задача поставлена в очередь</div>
+      <div>400</div><div>Bad Request — невалидные параметры</div>
+      <div>401</div><div>Unauthorized — отсутствует или невалиден JWT</div>
+      <div>403</div><div>Forbidden — initData подпись невалидна</div>
+      <div>429</div><div>Too Many Requests — rate limit exceeded</div>
+      <div>503</div><div>Service Unavailable — circuit breaker OPEN</div>
+    </div>
+  </div>
+</div>
+<footer class="site-footer">
+  SwapToken-NFT (SWNF) · <a href="index.html" style="color:var(--text-tertiary)">Главная</a> · <a href="contact.html" style="color:var(--text-tertiary)">Контакты</a>
+</footer>
+<script>
+function toggleEndpoint(btn){
+  var ep=btn.closest('.endpoint');
+  var wasOpen=ep.classList.contains('open');
+  document.querySelectorAll('.endpoint.open').forEach(function(e){e.classList.remove('open');e.querySelector('.endpoint-body').style.maxHeight='0';});
+  if(!wasOpen){ep.classList.add('open');var body=ep.querySelector('.endpoint-body');body.style.maxHeight=body.scrollHeight+'px';}
+}
+</script>
+</body>
+</html>
