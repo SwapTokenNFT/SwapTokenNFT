@@ -781,3 +781,38 @@ swaptoken-nft-mvp-skeleton/
 └── .github/
     └── workflows/
         └── ci.yml                       # GitHub Actions: lint (ruff), format, type-check (mypy), test (pytest + coverage)
+# Hi, I’m @SwapTokenNFT 👋
+
+I build backend systems, AI agent workflows, and Web3 products focused on NFTs, tokenized access, and blockchain automation.
+
+- 👀 I’m interested in blockchain, AI agents, backend architecture, token economics, and decentralized product design.
+- 🌱 I’m currently learning and building around SwapToken-NFT, Club Agent, Club Economy Agent, and secure signer-based transaction flows.
+- 💞️ I’m looking to collaborate on Web3 infrastructure, NFT membership systems, Telegram bots, and production-grade agent orchestration.
+- 📫 How to reach me: [X](https://x.com/2misterX) · [DoraHacks](https://dorahacks.io/buidl/13438)
+
+## What I build
+
+- Backend services with FastAPI, Pydantic, SQLAlchemy, Redis, and PostgreSQL.
+- AI orchestration pipelines with policy checks, audit trails, and safe execution.
+- Blockchain tools for NFT membership, rewards, access control, and transaction signing.
+- Telegram-first product experiences for communities and Web3 projects.
+
+## Featured project
+
+### SwapToken-NFT
+A modular Web3 project for NFT-based membership, club access, rewards, partner settlement, and blockchain-assisted automation.
+
+- Core pipeline: CLI, orchestrator, agent registry, wallet guard, tools, signer, audit, storage.
+- Club Agent: onboarding, verification, membership transitions, community actions.
+- Club Economy Agent: partners, reward rules, offers, analytics, settlement.
+- Blockchain flow: access requests, reward actions, signer isolation, receipt parsing.
+
+## Stack
+
+FastAPI · Pydantic · SQLAlchemy · Redis · PostgreSQL · Docker · Python · Telegram Bot API · TON · FunC · AI agents · GitHub Actions
+
+## Contact
+
+- X: https://x.com/2misterX
+- DoraHacks: https://dorahacks.io/buidl/13438
+- GitHub: https://github.com/SwapTokenNFT
